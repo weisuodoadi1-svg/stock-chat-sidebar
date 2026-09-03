@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "A 股聊天侧栏",
+  "version": "0.1.8",
+  "description": "在 zx017 聊天页右侧查看 A 股分时、成交量、自选排序与自定义提醒。",
+  "permissions": [
+    "storage",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://pc.zx017.net/*",
+    "https://searchapi.eastmoney.com/*",
+    "https://web.ifzq.gtimg.cn/*",
+    "https://push2.eastmoney.com/*",
+    "https://push2his.eastmoney.com/*",
+    "https://quotes.sina.cn/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://pc.zx017.net/vueapp/uc/chatting*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "content.css"
+      ],
+      "matches": [
+        "https://pc.zx017.net/*"
+      ]
+    }
+  ]
+}
