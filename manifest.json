@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "A 股聊天侧栏",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "在 zx017 聊天页右侧查看 A 股分时、成交量、自选排序与自定义提醒。",
   "permissions": [
     "storage",

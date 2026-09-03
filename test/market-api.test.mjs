@@ -37,16 +37,20 @@ const DEFAULT_ALERTS = {
   changeBelow: null,
 }
 
-test('market module cache fingerprint matches the manifest version', async () => {
+test('runtime assets match the manifest version', async () => {
   const extensionRoot = new URL('../', import.meta.url)
-  const [manifestSource, backgroundSource] = await Promise.all([
+  const [manifestSource, backgroundSource, notificationIcon] = await Promise.all([
     readFile(new URL('manifest.json', extensionRoot), 'utf8'),
     readFile(new URL('background.js', extensionRoot), 'utf8'),
+    readFile(new URL('icon-128.png', extensionRoot)),
   ])
   const manifest = JSON.parse(manifestSource)
   const fingerprint = backgroundSource.match(/from '\.\/market-api\.mjs\?v=([^']+)'/)
   assert.ok(fingerprint, 'background market module import must carry a version query')
   assert.equal(fingerprint[1], manifest.version)
+  assert.deepEqual([...notificationIcon.subarray(0, 8)], [137, 80, 78, 71, 13, 10, 26, 10])
+  assert.equal(notificationIcon.readUInt32BE(16), 128)
+  assert.equal(notificationIcon.readUInt32BE(20), 128)
 })
 
 test('normalizes supported A-share identifiers for both providers', () => {
@@ -485,7 +489,7 @@ test('notification messages are sanitized and bounded before dispatch', async ()
   assert.equal(calls.length, 1)
   assert.equal(calls[0].id, result.id)
   assert.equal(calls[0].options.type, 'basic')
-  assert.match(calls[0].options.iconUrl, /^data:image\/svg\+xml,/)
+  assert.equal(calls[0].options.iconUrl, 'icon-128.png')
   assert.equal(Array.from(calls[0].options.title).length, 80)
   assert.equal(Array.from(calls[0].options.message).length, 240)
   assert.match(calls[0].options.title, /^药明 康德 提醒/)

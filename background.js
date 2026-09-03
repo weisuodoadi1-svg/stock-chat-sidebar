@@ -1,6 +1,6 @@
 // Arc can retain an unpacked extension's imported module across reloads.  Keep
 // this query synchronized with manifest.version; a focused test enforces it.
-import { StockApiError, buildSnapshot, fetchSnapshot, normalizeStock, searchStocks } from './market-api.mjs?v=0.1.8'
+import { StockApiError, buildSnapshot, fetchSnapshot, normalizeStock, searchStocks } from './market-api.mjs?v=0.1.9'
 
 /** Local-storage key owned by this extension. */
 export const WATCHLIST_STORAGE_KEY = 'stockChatSidebar.watchlist'
@@ -14,7 +14,7 @@ const DEFAULT_ALERTS = Object.freeze({
   changeAbove: null,
   changeBelow: null,
 })
-const NOTIFICATION_ICON = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"%3E%3Crect width="128" height="128" rx="24" fill="%2395641f"/%3E%3Cpath d="M22 88 45 62l20 13 39-43" fill="none" stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E'
+const NOTIFICATION_ICON = 'icon-128.png'
 
 /** New installs start without revealing any example-stock preference. */
 export const DEFAULT_WATCHLIST = Object.freeze([])

@@ -42,6 +42,7 @@ stock-chat-sidebar/
 ├── market-api.mjs
 ├── content.js
 ├── content.css
+├── icon-128.png
 ├── package.json
 └── test/
 ```
